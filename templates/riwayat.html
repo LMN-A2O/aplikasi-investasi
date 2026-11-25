@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block judul %}Riwayat - Investasiku{% endblock %}
+{% block isi %}
+<h1>Riwayat Transaksi</h1>
+
+{% if transaksi %}
+<div class="tabel-bungkus">
+  <table class="tabel-kartu">
+    <thead>
+      <tr>
+        <th>Tanggal (WIB)</th>
+        <th>Jenis</th>
+        <th>Produk</th>
+        <th class="angka">Nominal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in transaksi %}
+      {% set masuk = t.jenis in ('SETOR', 'JUAL') %}
+      <tr>
+        <td data-label="Tanggal (WIB)">{{ t.tanggal | waktu_wib }}</td>
+        <td data-label="Jenis">{{ t.jenis }}</td>
+        <td data-label="Produk">{{ t.produk or '-' }}</td>
+        <td data-label="Nominal" class="angka {{ 'naik' if masuk else 'turun' }}">
+          {{ '+' if masuk else '-' }}{{ t.nominal | rupiah }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="catatan">Tanda + menambah saldo (setor, jual). Tanda - mengurangi saldo (tarik, beli).
+  Menampilkan maksimal 200 transaksi terbaru.</p>
+{% else %}
+<p class="catatan">Belum ada transaksi.</p>
+{% endif %}
+{% endblock %}

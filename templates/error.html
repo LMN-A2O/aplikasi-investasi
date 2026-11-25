@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block judul %}Terjadi masalah - Investasiku{% endblock %}
+{% block isi %}
+<div class="kotak">
+  <h1>{{ kode }}</h1>
+  <p>{{ pesan }}</p>
+  <p><a href="{{ url_for('dashboard') }}">Kembali ke beranda</a></p>
+</div>
+{% endblock %}

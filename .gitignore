@@ -1,0 +1,7 @@
+# Jangan ikut diunggah ke GitHub
+venv/
+__pycache__/
+*.pyc
+database.db
+rahasia.key
+.env

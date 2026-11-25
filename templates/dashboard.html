@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block judul %}Dashboard - Investasiku{% endblock %}
+{% block isi %}
+<h1>Dashboard</h1>
+
+<div class="grid-kartu">
+  <div class="kartu">
+    <small>SALDO</small>
+    <strong>{{ r.saldo | rupiah }}</strong>
+    <span class="sub">Belum diinvestasikan</span>
+  </div>
+  <div class="kartu">
+    <small>MODAL</small>
+    <strong>{{ r.total_modal | rupiah }}</strong>
+    <span class="sub">Uang yang sedang diinvestasikan</span>
+  </div>
+  <div class="kartu">
+    <small>NILAI SEKARANG</small>
+    <strong>{{ r.total_nilai | rupiah }}</strong>
+    <span class="sub">Nilai investasi saat ini</span>
+  </div>
+  <div class="kartu">
+    <small>KENAIKAN</small>
+    <strong class="{{ 'naik' if r.persen >= 0 else 'turun' }}">{{ r.persen | persen }}</strong>
+    <span class="sub {{ 'naik' if r.untung >= 0 else 'turun' }}">Untung {{ r.untung | rupiah }}</span>
+  </div>
+  <div class="kartu">
+    <small>TOTAL ASET</small>
+    <strong>{{ r.total_aset | rupiah }}</strong>
+    <span class="sub">Saldo + nilai sekarang</span>
+  </div>
+</div>
+
+<div class="aksi-cepat">
+  <a class="tombol-link" href="{{ url_for('halaman_saldo') }}">Setor / Tarik</a>
+  <a class="tombol-link alt" href="{{ url_for('halaman_produk') }}">Beli Produk</a>
+</div>
+
+<h2>Investasi Saya</h2>
+{% if r.investasi %}
+<div class="tabel-bungkus">
+  <table class="tabel-kartu">
+    <thead>
+      <tr>
+        <th>Produk</th>
+        <th class="angka">Modal</th>
+        <th class="angka">Nilai sekarang</th>
+        <th class="angka">Untung</th>
+        <th class="angka">Naik</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in r.investasi %}
+      <tr>
+        <td data-label="Produk">{{ i.nama }}</td>
+        <td data-label="Modal" class="angka">{{ i.modal | rupiah }}</td>
+        <td data-label="Nilai sekarang" class="angka">{{ i.nilai | rupiah }}</td>
+        <td data-label="Untung" class="angka {{ 'naik' if i.untung >= 0 else 'turun' }}">{{ i.untung | rupiah }}</td>
+        <td data-label="Naik" class="angka {{ 'naik' if i.persen >= 0 else 'turun' }}">{{ i.persen | persen }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="catatan">Belum ada investasi. Beli produk lewat menu <a href="{{ url_for('halaman_produk') }}">Produk</a>.</p>
+{% endif %}
+<p class="catatan">"Untung" adalah keuntungan yang belum diambil. Keuntungan baru masuk ke saldo saat produk dijual.</p>
+{% endblock %}

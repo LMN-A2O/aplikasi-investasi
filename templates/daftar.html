@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block judul %}Daftar - Investasiku{% endblock %}
+{% block isi %}
+<div class="kotak">
+  <h1>Daftar</h1>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Nama
+      <input type="text" name="nama" maxlength="100" required>
+    </label>
+    <label>Email
+      <input type="email" name="email" maxlength="254" required>
+    </label>
+    <label>Kata sandi (8 sampai 128 karakter)
+      <input type="password" name="kata_sandi" minlength="8" maxlength="128" required>
+    </label>
+    <button type="submit">Buat akun</button>
+  </form>
+  <p>Sudah punya akun? <a href="{{ url_for('login') }}">Masuk</a></p>
+</div>
+{% endblock %}

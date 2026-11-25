@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block judul %}Investasiku{% endblock %}</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <strong>Investasiku</strong>
+    {% if current_user.is_authenticated %}
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('halaman_produk') }}">Produk</a>
+      <a href="{{ url_for('halaman_saldo') }}">Saldo</a>
+      <a href="{{ url_for('halaman_riwayat') }}">Riwayat</a>
+      <span>Halo, {{ current_user.nama }}</span>
+      <form method="post" action="{{ url_for('keluar') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="tombol-kecil">Keluar</button>
+      </form>
+    </nav>
+    {% endif %}
+  </header>
+
+  <main>
+    {% for kategori, pesan in get_flashed_messages(with_categories=true) %}
+      <p class="pesan {{ kategori }}">{{ pesan }}</p>
+    {% endfor %}
+
+    {% block isi %}{% endblock %}
+  </main>
+
+  <footer class="catatan-simulasi">
+    Aplikasi simulasi untuk belajar. Uang di sini bukan uang sungguhan,
+    jadi jangan memakai kata sandi yang sama dengan layanan lain.
+  </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

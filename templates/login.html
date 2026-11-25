@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block judul %}Masuk - Investasiku{% endblock %}
+{% block isi %}
+<div class="kotak">
+  <h1>Masuk</h1>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Email
+      <input type="email" name="email" required>
+    </label>
+    <label>Kata sandi
+      <input type="password" name="kata_sandi" required>
+    </label>
+    <button type="submit">Masuk</button>
+  </form>
+  <p>Belum punya akun? <a href="{{ url_for('daftar') }}">Daftar</a></p>
+</div>
+{% endblock %}

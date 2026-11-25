@@ -1,0 +1,82 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; margin: 0; background: #f4f6f8; color: #1f2933; }
+header { display: flex; justify-content: space-between; align-items: center;
+         padding: 12px 24px; background: #0f766e; color: #fff; }
+nav { display: flex; gap: 16px; align-items: center; }
+nav a { color: #fff; }
+main { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+.kotak { max-width: 380px; margin: 40px auto; background: #fff; padding: 24px;
+         border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+label { display: block; margin-bottom: 12px; font-size: 14px; }
+input { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #cbd2d9; border-radius: 4px; }
+button { width: 100%; padding: 10px; background: #0f766e; color: #fff; border: 0;
+         border-radius: 4px; cursor: pointer; font-size: 15px; }
+.tombol-kecil { width: auto; padding: 4px 10px; background: #fff; color: #0f766e; }
+.pesan { padding: 10px 14px; border-radius: 4px; }
+.pesan.error { background: #fde8e8; color: #9b1c1c; }
+.pesan.sukses { background: #def7ec; color: #03543f; }
+.kartu { background: #fff; padding: 16px; border-radius: 8px; max-width: 260px;
+         box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+.kartu small { display: block; color: #52606d; }
+.kartu strong { font-size: 24px; }
+
+/* Tabel (produk, riwayat) */
+.tabel-bungkus { overflow-x: auto; margin-top: 16px; background: #fff; border-radius: 8px;
+                 box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e4e7eb; white-space: nowrap; }
+th { background: #f0f4f8; color: #52606d; font-weight: 600; }
+.naik { color: #03543f; font-weight: 600; }
+.turun { color: #9b1c1c; font-weight: 600; }
+.baris-aksi { display: flex; gap: 6px; align-items: center; }
+.baris-aksi input { width: 130px; margin: 0; }
+.baris-aksi button { width: auto; padding: 8px 12px; }
+.baris-aksi .tombol-jual { background: #b45309; }
+.baris-aksi button:disabled { background: #cbd2d9; cursor: not-allowed; }
+.catatan { font-size: 13px; color: #52606d; }
+
+/* Dashboard */
+h2 { margin-top: 28px; }
+.grid-kartu { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 12px; margin: 16px 0; }
+.grid-kartu .kartu { max-width: none; }
+.kartu .sub { display: block; margin-top: 4px; font-size: 13px; color: #52606d; }
+.kartu .sub.naik { color: #03543f; }
+.kartu .sub.turun { color: #9b1c1c; }
+.aksi-cepat { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+.tombol-link { display: inline-block; padding: 10px 16px; background: #0f766e; color: #fff;
+               border: 1px solid #0f766e; border-radius: 4px; text-decoration: none; }
+.tombol-link.alt { background: #fff; color: #0f766e; }
+th.angka, td.angka { text-align: right; }
+
+/* Tambahan Tahap 6 */
+.info-nominal { display: block; min-height: 1.2em; margin: 2px 0 8px; color: #52606d; }
+.isi-semua { background: #fff; color: #0f766e; border: 1px solid #0f766e; }
+.kotak .isi-semua { margin-top: 8px; }
+header, nav { flex-wrap: wrap; }
+header { gap: 8px; }
+
+@media (max-width: 600px) {
+  header { padding: 10px 16px; }
+  nav { gap: 10px; font-size: 14px; }
+  .kotak { margin: 16px auto; padding: 16px; }
+  .baris-aksi { flex-wrap: wrap; }
+  .baris-aksi input { width: 100%; }
+  th, td { padding: 8px; }
+
+  /* Tabel berubah menjadi kartu per baris di layar kecil */
+  .tabel-kartu, .tabel-kartu tbody, .tabel-kartu tr { display: block; width: 100%; }
+  .tabel-kartu thead { display: none; }
+  .tabel-kartu tr { padding: 8px 12px; border-bottom: 8px solid #f4f6f8; }
+  .tabel-kartu td { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+                    border: 0; padding: 4px 0; white-space: normal; text-align: right; }
+  .tabel-kartu td::before { content: attr(data-label); color: #52606d; font-weight: 600; text-align: left; }
+  .tabel-kartu td.sel-aksi::before { content: none; }
+  .tabel-kartu td.sel-aksi { padding-top: 8px; }
+  .tabel-kartu .baris-aksi { flex: 1 1 100%; }
+  .tabel-kartu .info-nominal { flex: 1 1 100%; text-align: left; }
+}
+
+/* Tahap 9 */
+.catatan-simulasi { max-width: 900px; margin: 32px auto; padding: 0 16px;
+                    font-size: 12px; color: #52606d; text-align: center; }

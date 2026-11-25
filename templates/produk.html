@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block judul %}Produk - Investasiku{% endblock %}
+{% block isi %}
+<h1>Produk Investasi</h1>
+<div class="kartu">
+  <small>SALDO ANDA</small>
+  <strong>{{ saldo | rupiah }}</strong>
+</div>
+
+<div class="tabel-bungkus">
+  <table class="tabel-kartu">
+    <thead>
+      <tr>
+        <th>Produk</th>
+        <th>Jenis</th>
+        <th>Kenaikan</th>
+        <th>Modal Anda</th>
+        <th>Nilai sekarang</th>
+        <th>Beli / Jual</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in produk %}
+      <tr>
+        <td data-label="Produk">{{ p.nama }}</td>
+        <td data-label="Jenis">{{ p.jenis }}</td>
+        <td data-label="Kenaikan" class="{{ 'naik' if p.kenaikan_persen >= 0 else 'turun' }}">
+          {{ p.kenaikan_persen | persen }}
+        </td>
+        <td data-label="Modal Anda">{{ p.modal | rupiah }}</td>
+        <td data-label="Nilai sekarang">{{ p.nilai | rupiah }}</td>
+        <td data-label="" class="sel-aksi">
+          <form method="post" action="{{ url_for('transaksi_produk') }}" class="baris-aksi"
+                data-konfirmasi data-nama="{{ p.nama }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="produk_id" value="{{ p.id }}">
+            <input type="number" name="nominal" min="1" step="1" placeholder="Nominal" required>
+            <button type="submit" name="aksi" value="BELI">Beli</button>
+            <button type="submit" name="aksi" value="JUAL" class="tombol-jual"
+                    {% if p.nilai <= 0 %}disabled{% endif %}>Jual</button>
+            {% if p.nilai > 0 %}
+            <button type="button" class="isi-semua" data-nilai="{{ p.nilai }}"
+                    title="Isi nominal dengan seluruh nilai produk ini">Semua</button>
+            {% endif %}
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="catatan">Beli memakai saldo. Jual dihitung dari <strong>nilai sekarang</strong>
+  dan hasilnya masuk kembali ke saldo.</p>
+{% endblock %}
