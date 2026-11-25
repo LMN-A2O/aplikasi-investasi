@@ -28,7 +28,7 @@ Python, Flask, Flask-Login, SQLite, HTML, CSS, dan JavaScript. Uji otomatis mema
 ## Cara menjalankan (Windows)
 
 ```
-git clone https://github.com/NAMAANDA/aplikasi-investasi.git
+git clone https://github.com/LMN-A2O/aplikasi-investasi.git
 cd aplikasi-investasi
 python -m venv venv
 venv\Scripts\activate
